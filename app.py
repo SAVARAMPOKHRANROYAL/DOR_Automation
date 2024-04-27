@@ -53,4 +53,5 @@ def index():
     return render_template("home.html")
 
 if __name__ == "__main__":
+    pyautogui.FAILSAFE = False
     app.run(debug=True)
