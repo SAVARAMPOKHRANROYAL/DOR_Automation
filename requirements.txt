@@ -1,2 +1,14 @@
-Flask==2.0.1
-pyautogui==0.9.54
+Flask
+pyautogui
+threadpoolctl
+Werkzeug
+gunicorn
+flask_cors
+click
+colorama
+itsdangerous
+Jinja2
+joblib
+MarkupSafe
+numpy
+scipy
