@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 import subprocess
 import time
+import os
+os.environ['DISPLAY'] = ':0'
+os.environ['XAUTHORITY']='/run/user/1000/gdm/Xauthority'
 import pyautogui
 
 app = Flask(__name__)
