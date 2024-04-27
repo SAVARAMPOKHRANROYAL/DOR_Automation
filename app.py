@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request
 import subprocess
 import time
+import os
 import pyautogui
 
 app = Flask(__name__)
 
-#def login_to_remote_desktop(username, password, server_address, server_addresses):
+def setup_xvfb():
+    # Start Xvfb with a virtual display
+    xvfb_process = subprocess.Popen(["Xvfb", ":99", "-screen", "0", "1024x768x24"])
+    time.sleep(2)  # Wait for Xvfb to start
+    os.environ["DISPLAY"] = ":99"  # Set DISPLAY environment variable
+
 def login_to_remote_desktop(username, password, server_address):
     # Open Remote Desktop Connection
     subprocess.Popen("mstsc")
@@ -33,21 +39,14 @@ def login_to_remote_desktop(username, password, server_address):
     pyautogui.hotkey("ctrl", "shift", "enter")
     time.sleep(2)
 
-    #for server_address in server_addresses:
-        # Run the PowerShell command
-    #    pyautogui.write("tnc {} -port port_number".format(server_address))
-    #    pyautogui.press("enter")
-    #    time.sleep(5)  # Wait for the command to execute
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         server_address = request.form["server_address"]
-        #server_addresses = request.form.getlist("server_addresses")
 
-        #login_to_remote_desktop(username, password, server_address, server_addresses)
+        setup_xvfb()  # Start Xvfb and set DISPLAY environment variable
         login_to_remote_desktop(username, password, server_address)
         return "Commands executed successfully on remote servers!"
     return render_template("home.html")

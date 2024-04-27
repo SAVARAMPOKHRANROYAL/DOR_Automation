@@ -1,4 +1,5 @@
 Flask
+xvfb
 pyautogui
 threadpoolctl
 Werkzeug
